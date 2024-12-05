@@ -4,6 +4,9 @@ import { API_URL } from "./constant";
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
+  headers: {
+    "ngrok-skip-browser-warning": "true",
+  },
 });
 
 axiosInstance.interceptors.response.use(

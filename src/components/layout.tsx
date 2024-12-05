@@ -60,14 +60,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </div>
 
                 {/* Document list */}
-                {documents.map((document) => (
-                  <SidebarItem
-                    key={document.id}
-                    title={document.name}
-                    isChild
-                    onClick={() => navigate(`/documents/${document.id}`)}
-                  />
-                ))}
+                {documents &&
+                  Array.isArray(documents) &&
+                  documents.map((document) => (
+                    <SidebarItem
+                      key={document.id}
+                      title={document.name}
+                      isChild
+                      onClick={() => navigate(`/documents/${document.id}`)}
+                    />
+                  ))}
 
                 <div className="h-px bg-border my-2" />
               </div>

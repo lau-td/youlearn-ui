@@ -1,15 +1,9 @@
-import axios from "axios";
 import { FlashCard } from "../interfaces";
-
-import { API_URL } from "./constant";
-
-export const flashCardApi = axios.create({
-  baseURL: `${API_URL}`,
-});
+import axiosInstance from "./axios-config";
 
 export const getFlashCards = async (documentId: string) => {
   const token = localStorage.getItem("token");
-  const response = await flashCardApi.get<FlashCard[]>(
+  const response = await axiosInstance.get<FlashCard[]>(
     `/llm-tasks/flash-card?documentId=${documentId}`,
     {
       headers: {
@@ -24,7 +18,7 @@ export const getFlashCards = async (documentId: string) => {
 
 export const createFlashCards = async (documentId: string) => {
   const token = localStorage.getItem("token");
-  const response = await flashCardApi.post<FlashCard[]>(
+  const response = await axiosInstance.post<FlashCard[]>(
     `/llm-tasks/flash-card`,
     { documentId },
     {

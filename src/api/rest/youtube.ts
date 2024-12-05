@@ -1,14 +1,9 @@
-import axios from "axios";
+import axiosInstance from "./axios-config";
 import { YoutubeInfo, YoutubeSummary, YoutubeTranscript } from "../interfaces";
-import { API_URL } from "./constant";
-
-export const youtubeApi = axios.create({
-  baseURL: `${API_URL}`,
-});
 
 export const uploadYoutubeVideos = async (urls: string[]) => {
   const token = localStorage.getItem("token");
-  const response = await youtubeApi.post<any>(
+  const response = await axiosInstance.post<any>(
     "/uploader/youtube",
     {
       urls,
@@ -26,7 +21,7 @@ export const uploadYoutubeVideos = async (urls: string[]) => {
 
 export const getYoutubeTranscripts = async (documentId: string) => {
   const token = localStorage.getItem("token");
-  const response = await youtubeApi.get<YoutubeTranscript[]>(
+  const response = await axiosInstance.get<YoutubeTranscript[]>(
     `/youtube/transcript?documentId=${documentId}`,
     {
       headers: {
@@ -40,7 +35,7 @@ export const getYoutubeTranscripts = async (documentId: string) => {
 
 export const getYoutubeInfo = async (documentId: string) => {
   const token = localStorage.getItem("token");
-  const response = await youtubeApi.get<YoutubeInfo>(
+  const response = await axiosInstance.get<YoutubeInfo>(
     `/youtube/info?documentId=${documentId}`,
     {
       headers: {
@@ -54,7 +49,7 @@ export const getYoutubeInfo = async (documentId: string) => {
 
 export const getYoutubeSummary = async (documentId: string) => {
   const token = localStorage.getItem("token");
-  const response = await youtubeApi.get<YoutubeSummary>(
+  const response = await axiosInstance.get<YoutubeSummary>(
     `/youtube/summary?documentId=${documentId}`,
     {
       headers: {

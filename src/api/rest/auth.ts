@@ -1,23 +1,18 @@
-import axios from "axios";
-import { API_URL } from "./constant";
-
-export const authApi = axios.create({
-  baseURL: `${API_URL}/auth`,
-});
+import axiosInstance from "./axios-config";
 
 export const signup = async (email: string) => {
-  const response = await authApi.post<{
+  const response = await axiosInstance.post<{
     accessToken: string;
-  }>("/signup", {
+  }>("auth/signup", {
     email,
   });
   return response.data;
 };
 
 export const login = async (email: string) => {
-  const response = await authApi.post<{
+  const response = await axiosInstance.post<{
     accessToken: string;
-  }>("/login", {
+  }>("auth/login", {
     email,
   });
 

@@ -2,18 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronRightIcon } from "lucide-react";
 import { useState } from "react";
-import { uploadYoutubeVideos } from "./api/rest";
+import { storeDocument, uploadYoutubeVideos } from "./api/rest";
 import Layout from "./components/layout";
+import { useNavigate } from "react-router-dom";
 
 const App: React.FC = () => {
   const [url, setUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
       const response = await uploadYoutubeVideos([url]);
-      console.log(response);
+      await storeDocument(response.documentId);
+      navigate(`/documents/${response.documentId}`);
     } catch (error) {
       console.error(error);
     } finally {

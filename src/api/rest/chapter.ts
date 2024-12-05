@@ -1,15 +1,10 @@
-import axios from "axios";
 import { Chapter } from "../interfaces";
-import { API_URL } from "./constant";
-
-export const chapterApi = axios.create({
-  baseURL: `${API_URL}/chapters`,
-});
+import axiosInstance from "./axios-config";
 
 export const getChapters = async (documentId: string) => {
   const token = localStorage.getItem("token");
-  const response = await chapterApi.get<Chapter[]>(
-    `/?documentId=${documentId}`,
+  const response = await axiosInstance.get<Chapter[]>(
+    `/chapters?documentId=${documentId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,8 +17,8 @@ export const getChapters = async (documentId: string) => {
 
 export const generateChapters = async (documentId: string) => {
   const token = localStorage.getItem("token");
-  const response = await chapterApi.post<{ result: string }>(
-    `/generate`,
+  const response = await axiosInstance.post<{ result: string }>(
+    `/chapters/generate`,
     { documentId },
     {
       headers: {
